@@ -3,8 +3,8 @@ import "@xyflow/react/dist/style.css";
 
 import { useFlowchart } from "@/hooks/useFlowchart";
 
-export default function Flowchart({ data }: { data: string }) {
-  const result = useFlowchart({ data });
+export default function Flowchart({ data, prev }: { data: string,  prev: string }) {
+  const result = useFlowchart({ data, prev });
   
   if (typeof result === 'string') {
     return <div>Invalid data format</div>;
