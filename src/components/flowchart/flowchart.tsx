@@ -11,7 +11,7 @@ export default function Flowchart({ data, prev }: { data: string,  prev: string 
   }
 
   return (
-    <div className="h-full w-full rounded-lg p-4 bg-white text-black border border-red-500">
+    <div className="h-full w-full rounded-xl p-4 bg-white text-black border border-blue-300 shadow-md">
       <ReactFlow nodes={result.nodes} edges={result.edges} />
     </div>
   );

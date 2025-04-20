@@ -22,7 +22,7 @@ export default function Chatbot({
   }, [messages, setHomeMessage, setPrevMessage]);
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 rounded-xl overflow-hidden border border-red-500">
+    <div className="flex flex-col h-full rounded-xl overflow-hidden border border-blue-300 shadow-md">
       <ChatMessages
         messages={messages}
         isLoading={isLoading}
