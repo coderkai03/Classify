@@ -12,5 +12,10 @@ interface Course {
 
 interface PrereqTree {
   type: "AND" | "OR";
-  children: (PrereqTree | string)[];
+  children: (PrereqTree | PrereqCourse)[];
+}
+
+interface PrereqCourse {
+  id: string;
+  isCoreq: boolean;
 }
