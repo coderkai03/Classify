@@ -2,6 +2,7 @@ import type { Message } from "ai"
 import { User, Bot } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
+import ReactMarkdown from 'react-markdown'
 
 interface ChatMessageProps {
   message: Message
@@ -32,7 +33,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               : "bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 border-cyan-700/30 text-cyan-50",
           )}
         >
-          <div className="whitespace-pre-wrap">{message.content}</div>
+          <ReactMarkdown>
+            {message.content}
+          </ReactMarkdown>
         </Card>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
-import courseCatalog from "@/data/ucr-major-reqs.json";
+import courseData from "@/data/ucr_courses.json";
+import majorReqs from "@/data/cs-major-reqs.json";
 
 export async function POST(req: Request) {
     const { messages } = await req.json();
@@ -12,7 +13,15 @@ export async function POST(req: Request) {
 
     const response = await ai.models.generateContent({
         model: "gemini-2.0-flash",
-        contents: "Here is the student's course history and concerns: " + latestMessage.content + "Determine which courses the student should take next. Use the following course catalog to help you make your decision: " + courseCatalog.text,
+        contents: 
+            "Here is the student's course history and/or concerns: " + 
+            latestMessage.content + 
+            ". Determine which courses the student should take next. " +
+            "Use the following UCR course catalog and prerequisites to help you make your decision: " + 
+            JSON.stringify(courseData) + 
+            "For next courses, consider the following UCR Computer Science major requirements: " + 
+            majorReqs.text +
+            ". Separate courses response into 2 sections: 1) Prerequisites and 2) Up Next. Return the course IDs, names, and short descriptions. Include spacing between each course and section.",
         config: {
             systemInstruction: "You are a college counselor. You are given a student's course history and you need to help them choose the best remaining courses to take.",
         },
