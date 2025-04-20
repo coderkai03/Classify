@@ -7,7 +7,7 @@ export default function Flowchart() {
   const { nodes, edges } = useFlowchart();
 
   return (
-    <div className="h-full w-full rounded-lg p-4 bg-white text-black ">
+    <div className="h-full w-full rounded-lg p-4 bg-white text-black border border-red-500">
       <ReactFlow nodes={nodes} edges={edges} />
     </div>
   );
