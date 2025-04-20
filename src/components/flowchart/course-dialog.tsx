@@ -17,7 +17,7 @@ export function CourseDialog({ courseId, open, onOpenChange }: CourseDialogProps
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Content className="fixed right-5 top-20 max-h-[85vh] w-[400px] rounded-lg bg-white/95 backdrop-blur-sm p-6 shadow-xl focus:outline-none border border-gray-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-right-1/2 data-[state=open]:slide-in-from-right-1/2">
+        <Dialog.Content className="fixed right-5 top-50 max-h-[85vh] w-[400px] rounded-lg bg-white/95 backdrop-blur-sm p-6 shadow-xl focus:outline-none border border-gray-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-right-1/2 data-[state=open]:slide-in-from-right-1/2">
           <Dialog.Title className="text-lg font-semibold">
             {course.id}: {course.title}
           </Dialog.Title>

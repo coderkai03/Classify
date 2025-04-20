@@ -9,17 +9,27 @@ export default function ChatMessage({ message }: { message: Message }) {
       const courseIds = JSON.parse(content) as string[];
       if (!Array.isArray(courseIds)) return content;
 
-      const courseInfo = courseIds
-        .map((id) => {
-          const course = (courseData as Courses)[id];
-          if (!course) {
-            return `${id}: Refer to full UCR course catalog for course details\n\n`;
-          }
-          return `${course.id}: ${course.title}\n${course.description}\n\n`;
-        })
-        .join("");
+      const upcoming: string[] = [];
+      const other: string[] = [];
 
-      return courseInfo || content;
+      courseIds.forEach((id) => {
+        const course = (courseData as Courses)[id];
+        if (course) {
+          upcoming.push(`${course.id}: ${course.title}\n`);
+        } else {
+          other.push(`${id}\n`);
+        }
+      });
+
+      let formattedContent = '';
+      if (upcoming.length > 0) {
+        formattedContent += "## Upcoming Courses\n" + upcoming.join("\n");
+      }
+      if (other.length > 0) {
+        formattedContent += "## \n\nOther Courses\n(Refer to full UCR course catalog for course details)\n" + other.join("\n");
+      }
+
+      return formattedContent || content;
     } catch (e) {
       console.error(e);
       return content;
