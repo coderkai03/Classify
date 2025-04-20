@@ -30,8 +30,8 @@ export default function ChatMessage({ message }: { message: Message }) {
     <div
       className={
         message.role === "user"
-          ? "bg-white text-gray-900 self-end rounded-2xl px-4 py-2 mb-2 border max-w-[80%]"
-          : "bg-primary/10 text-gray-900 self-start rounded-2xl px-4 py-2 mb-2 border max-w-[80%]"
+          ? "bg-white text-gray-900 self-end rounded-2xl px-4 py-2 mb-2 border border-blue-200 shadow-sm max-w-[80%]"
+          : "bg-blue-100 text-gray-900 self-start rounded-2xl px-4 py-2 mb-2 border border-blue-200 shadow-sm max-w-[80%]"
       }
     >
       <ReactMarkdown>

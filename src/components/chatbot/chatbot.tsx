@@ -8,18 +8,21 @@ import ChatInput from "@/components/chatbot/chat-input";
 
 export default function Chatbot({
   setHomeMessage,
+  setPrevMessage
 }: {
-  setHomeMessage: (message: Message) => void;
+  setHomeMessage: (message1: Message) => void;
+  setPrevMessage: (message2: Message) => void;
 }) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useGemini();
 
   useEffect(() => {
     setHomeMessage(messages.at(-1) as Message);
-  }, [messages]);
+    setPrevMessage(messages.at(-2) as Message);
+  }, [messages, setHomeMessage, setPrevMessage]);
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 rounded-xl overflow-hidden border border-red-500">
+    <div className="flex flex-col h-full rounded-xl overflow-hidden border border-blue-300 shadow-md">
       <ChatMessages
         messages={messages}
         isLoading={isLoading}

@@ -17,14 +17,13 @@ export default function ChatMessages({
 
   return (
     <div
-      className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse gap-1 scroll-smooth"
+      className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse gap-1 scroll-smooth bg-blue-50"
       style={{ scrollbarWidth: "thin" }}
     >
       <div ref={messagesEndRef} />
-      {/*// TODO: fix isLoading not working */}
-      {isLoading && <Skeleton className="w-[100px] h-[20px] rounded-full" />}
+      {isLoading && <Skeleton className="w-[100px] h-[20px] rounded-full bg-blue-200" />}
       {messages.length === 0 ? (
-        <div className="h-full w-full flex justify-center items-center">
+        <div className="h-full w-full flex justify-center items-center text-blue-700">
           Start typing!
         </div>
       ) : (

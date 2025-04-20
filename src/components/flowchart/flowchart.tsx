@@ -21,8 +21,8 @@ const defaultEdgeOptions = {
   },
 };
 
-function FlowchartInner({ data }: { data: string }) {
-  const { nodes, edges } = useFlowchart({ data });
+function FlowchartInner({ data, prev }: { data: string, prev: string }) {
+  const { nodes, edges } = useFlowchart({ data, prev });
 
   const customNodes = nodes.map(node => ({
     ...node,
@@ -42,6 +42,9 @@ function FlowchartInner({ data }: { data: string }) {
       fitView
       proOptions={{ hideAttribution: true }}
       edgeTypes={{smoothstep: SmoothStepEdge}}
+      onNodeClick={(event, node) => {
+        console.log(node);
+      }}
     >
       <Background 
         color="hsl(var(--muted-foreground))"
@@ -53,11 +56,11 @@ function FlowchartInner({ data }: { data: string }) {
   );
 }
 
-export default function Flowchart({ data }: { data: string }) {
+export default function Flowchart({ data, prev }: { data: string, prev: string }) {
   return (
     <div className="h-[800px] w-full rounded-xl border bg-background shadow-sm">
       <ReactFlowProvider>
-        <FlowchartInner data={data} />
+        <FlowchartInner data={data} prev={prev} />
       </ReactFlowProvider>
     </div>
   );
