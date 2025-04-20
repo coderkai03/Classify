@@ -11,7 +11,7 @@ export default function Home() {
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useGemini()
 
   useEffect(() => {
-    console.log(messages)
+    console.log(messages.at(-1)?.content)
   }, [messages])
 
   return (

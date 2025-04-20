@@ -3,6 +3,7 @@ import { User, Bot } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import ReactMarkdown from 'react-markdown'
+import courseData from "@/data/ucr_courses.json"
 
 interface ChatMessageProps {
   message: Message
@@ -10,6 +11,25 @@ interface ChatMessageProps {
 
 export default function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === "user"
+
+  const renderCourseInfo = (content: string) => {
+    try {
+      const courseIds = JSON.parse(content) as string[];
+      if (!Array.isArray(courseIds)) return content;
+
+      const courseInfo = courseIds.map(id => {
+        const course = courseData.find(c => c.course_id.includes(id));
+        if (!course) {
+          return `${id}: Refer to full UCR course catalog for course details\n\n`;
+        }
+        return `${course.course_id}: ${course.title}\n${course.description}\n\n`;
+      }).join('');
+
+      return courseInfo || content;
+    } catch (e) {
+      return content;
+    }
+  }
 
   return (
     <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
@@ -34,7 +54,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           )}
         >
           <ReactMarkdown>
-            {message.content}
+            {isUser ? message.content : renderCourseInfo(message.content)}
           </ReactMarkdown>
         </Card>
       </div>
