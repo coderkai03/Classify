@@ -1,18 +1,19 @@
-"use client"
-import { useChat } from '@ai-sdk/react'
-import ChatMessage from "@/components/chat-message"
-import ChatInput from "@/components/chat-input"
-import LoadingSkeleton from "@/components/loading-skeleton"
-import { Sparkles } from "lucide-react"
-import { useEffect } from 'react'
-import { useGemini } from '@/hooks/useGemini'
+"use client";
+
+import ChatMessage from "@/components/chat-message";
+import ChatInput from "@/components/chat-input";
+import LoadingSkeleton from "@/components/loading-skeleton";
+import { Sparkles } from "lucide-react";
+import { useEffect } from "react";
+import { useGemini } from "@/hooks/useGemini";
 
 export default function Home() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useGemini()
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useGemini();
 
   useEffect(() => {
-    console.log(messages)
-  }, [messages])
+    console.log(messages);
+  }, [messages]);
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
@@ -39,13 +40,17 @@ export default function Home() {
                   <Sparkles className="h-10 w-10 text-purple-400" />
                 </div>
               </div>
-              <h2 className="text-xl font-bold text-white mb-2">Welcome to NeonChat</h2>
+              <h2 className="text-xl font-bold text-white mb-2">
+                Welcome to NeonChat
+              </h2>
               <p className="text-purple-300 max-w-md">
-                Ask me anything and I'll respond with neon-powered intelligence.
+                Ask me anything and I&apos;ll respond with neon-powered intelligence.
               </p>
             </div>
           ) : (
-            messages.map((message) => <ChatMessage key={message.id} message={message} />)
+            messages.map((message) => (
+              <ChatMessage key={message.id} message={message} />
+            ))
           )}
 
           {isLoading && <LoadingSkeleton />}
@@ -67,5 +72,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }

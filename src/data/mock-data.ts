@@ -1,0 +1,831 @@
+/*
+
+Things about the data we've manually changed/handled:
+
+1. some course ids don't have spaces => manually add spaces to those that don't
+2. CS 179 (E-Z) => expand into E, F, G, I, J, M, N
+3. Classes from other majors => do what Rian is already doing to solve this
+4. Combined cross listed coures: CS 171/EE 142, CS/EE 120a, CS/EE 120b, CS/EE 168
+5. // TODO: Get upcoming
+
+*/
+
+const courses: Courses = {
+  "ENGR 001": {
+    id: "ENGR 001",
+    title: "Professional Development and Mentoring",
+    description: "1 Unit, Activity, 30 hours per quarter. Provides freshmen with involvement in professional development activities. Activities to be performed are program-specific, and may include projects, industry overviews and interactions, involvement with professional societies and clubs, team building, career guidance, and coverage of ethics and lifelong learning issues. E. Bioengineering; F. Chemical Engineering; G. Computer Engineering; I. Computer Science; J. Electrical Engineering; K. Environmental Engineering; M. Cmptr Scnce Business Applctns; N. Mechanical Engineering;",
+    prerequisites: null,
+    upcoming: []
+  },
+  "ENGR 101": {
+    id: "ENGR 101",
+    title: "Professional Development and Mentoring",
+    description: "1 Unit, Activity, 30 hours per quarter. Prerequisite(s): restricted to class level standing of junior; restricted to major(s) Bioengineering, Bioengineering BS + MS, Chemical Engineering, Chemical Engineering BS + MS, Computer Engineering, Computer Science, Computer Science BS + MS, Electrical Engineering, Electrical Engineering BS + MS, Environmental Engineering, Environmental Engr BS + MS, Materials Science and Engineer, Mechanical Engineering, Mechanical Engineering BS + MS. Provides juniors with involvement in professional development activities. Activities to be performed are program-specific, and may include projects, industry overviews and interactions, involvement with professional societies and clubs, team building, career guidance, and coverage of ethics and lifelong learning issues. E. Bioengineering; F. Chemical Engineering; G. Computer Engineering; I. Computer Science; J. Electrical Engineering; K. Environmental Engineering; M. Cmptr Scnce Business Applctns; N. Mechanical Engineering.",
+    prerequisites: null,
+    upcoming: []
+  },
+  "ENGR 180W": {
+    id: "ENGR 180W",
+    title: "Technical Communications",
+    description: "4 Units, Lecture, 3 hours; workshop, 3 hours. Prerequisite(s): ENGL 001B with a grade of 'C' or better; upper-division standing in the Bourns College of Engineering or consent of instructor. Develops oral, written, and graphical communication skills. Includes preparing and critiquing reports, proposals, instructions, and business correspondence. Emphasizes professional and ethical responsibilities and the need to stay current on technology and its global impact on economics, society, and the environment. Fulfills the third-quarter writing requirement for students who earn a grade of 'C' or better for courses that the Academic Senate designates, and that the student's college permits, as alternatives to English 001C.",
+    prerequisites: {
+      id: "ENGL 001B",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 005": {
+    id: "CS 005",
+    title: "Introduction to Computer Programming",
+    description: "4 Units, Lecture, 3 hours; laboratory,2 hours; individual study, 1 hour. An introduction to computer programming for nonengineering and nonscience majors and for those considering taking CS 010A but needing additional preparation. Topics include the history of computing, basic computer operation, the notion of an algorithm, and programming constructs such as variables, expressions, input/output, branches, loops, functions, parameters, arrays, and strings. Credit is not awarded for CS 005 if it has already been awarded for CS 010A.",
+    prerequisites: null,
+    upcoming: []
+  },
+  "CS 006": {
+    id: "CS 006",
+    title: "Effective Use of the World Wide Web",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): none. Adetailed introduction to the Internet fornon-engineering majors. Covers Web tools,e-communities, e-commerce, power searching,and verification of information, privacy, andother legal and societal issues.",
+    prerequisites: null,
+    upcoming: []
+  },
+  "CS 008": {
+    id: "CS 008",
+    title: "Introduction to Computing",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): none. Includes operating system basics (Windows and Unix),word processing, spreadsheets, databases(e.g., Access), e-mail, the Internet, and the World Wide Web. Designed for students not majoring in computer science, engineering, mathematics, or science. Credit is not awarded for CS 008 if it has already been awarded for CS 010A.",
+    prerequisites: null,
+    upcoming: []
+  },
+  "CS 009A": {
+    id: "CS 009A",
+    title: "Data-Oriented Introduction to Computing I",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s):MATH 004, may be taken concurrently or MATH 005A, may be taken concurrently or MATH 006A, may be taken concurrently or MATH 006B, may be taken concurrently or MATH 007A, may be taken concurrently or MATH 009A, may be taken concurrently or MATH 09HA, may be taken concurrently. Covers computational thinking, problem-solving, and data analysis through application-based data manipulation tasks from science, engineering, business, and the humanities. Includes variables, expressions, branches, loops, functions, parameters, lists, strings, file I/O, and exception handling. Also covers software design, testing, and debugging. Credit is awarded for one of the following CS 009A, CS 009M, or CS 010A.",
+    prerequisites: {
+      type: "OR",
+      children: [
+        { id: "MATH 004", isCoreq: true },
+        { id: "MATH 005A", isCoreq: true },
+        { id: "MATH 006A", isCoreq: true },
+        { id: "MATH 006B", isCoreq: true },
+        { id: "MATH 007A", isCoreq: true },
+        { id: "MATH 009A", isCoreq: true },
+        { id: "MATH 09HA", isCoreq: true }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 009B": {
+    id: "CS 009B",
+    title: "Data Oriented Introduction to Computing II",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s):CS 009A; or equivalent. Covers advanced programming concepts and algorithms through application-based data manipulation tasks from science, engineering, business, and the humanities. Emphasizes good programming principles in the design and development of substantial programs. Topics include abstract data types, objects and classes, recursion, and basic software engineering principles. Credit is awarded for one of the following CS 009B or CS 010B.",
+    prerequisites: {
+      id: "CS 009A",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 009C": {
+    id: "CS 009C",
+    title: "C++ For Programmers",
+    description: "2 Units, Lecture, 1 hour; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s): CS 009B; MATH 006B,may be taken concurrently or MATH 007A, maybe taken concurrently or MATH 005A, may betaken concurrently or MATH 004, may be taken concurrently or MATH 009A, may be taken concurrently or MATH 09HA, may be taken concurrently. Provides an introduction to the constructs provided in the C++ programming language for procedural and object-oriented programming. For those with prior programming experience.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 009B", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 006B", isCoreq: true },
+            { id: "MATH 007A", isCoreq: true },
+            { id: "MATH 005A", isCoreq: true },
+            { id: "MATH 004", isCoreq: true },
+            { id: "MATH 009A", isCoreq: true },
+            { id: "MATH 09HA", isCoreq: true }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 010A": {
+    id: "CS 010A",
+    title: "Introduction to CS for Science Mathematics, and Engineering I - C++",
+    description: "4 Units, Lecture, 3 hours, Laboratory, 3 hours.  Prerequisite(s):MATH 004, may be taken concurrently or MATH 005A, may be taken concurrently or MATH 006B, may be taken concurrently or MATH 007A, may be taken concurrently or MATH 009A,may be taken concurrently or MATH 09HA, maybe taken concurrently. Covers problem solving through structured programming of algorithms on computers using the C++ object-oriented language. Includes variables, expressions, input/output (I/O), branches, loops, functions, parameters, arrays, strings, file I/O, and classes. Also covers software design, testing, and debugging. Credit is awarded for one of the following CS 010A, CS 009A, or CS 009M.Credit is not awarded for CS 005 or CS 008 if it has already been awarded for CS 010A.",
+    prerequisites: {
+      type: "OR",
+      children: [
+        { id: "MATH 004", isCoreq: true },
+        { id: "MATH 005A", isCoreq: true },
+        { id: "MATH 006B", isCoreq: true },
+        { id: "MATH 007A", isCoreq: true },
+        { id: "MATH 009A", isCoreq: true },
+        { id: "MATH 09HA", isCoreq: true }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 010B": {
+    id: "CS 010B",
+    title: "Introduction to CS for Science, Mathematics, and Engineering II - C++",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2hours; individual study, 1 hour. Prerequisite(s):CS 010A with a grade of C- or better; familiarity with C or C++ language. Covers structured and object-oriented programming in C++.Emphasizes good programming principles and development of substantial programs. Topics include recursion, pointers, linked lists, abstract data types, and libraries. Also covers software engineering principles. Credit is awarded for one of the following CS 010B or CS 009B.",
+    prerequisites: {
+      id: "CS 010A",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 010C": {
+    id: "CS 010C",
+    title: "Introduction to Data Structures and Algorithms",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 010Bwith a grade of C- or better; proficiency in C++. Topics include basic data structures such as arrays, lists, stacks, and queues. Covers dictionaries (including binary search trees and hashing) and priority queues (heaps). Offers an introductory analysis of algorithms, sorting algorithms, and object-oriented programming, including abstract data types, inheritance, and polymorphism. Explores solving complex problems through structured software development.",
+    prerequisites: {
+      id: "CS 010B",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 042": {
+    id: "CS 042",
+    title: "A Hitchhiker's Guide to Artificial Intelligence",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): none. Surveys basic concepts and techniques underpinning modern AI including problem solving, automated reasoning, game AI, vision and language, neural networks, and robotics. Explores history, ethics, use cases, and applications. Introduces basic use of Python for building and using AI but expects no prior experience. Intended for non-engineering majors.",
+    prerequisites: null,
+    upcoming: []
+  },
+  "CS 061": {
+    id: "CS 061",
+    title: "Machine Organization & Assembly Language Programming",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2hours; individual study, 1 hour. Prerequisite(s):CS 010A with a grade of C- or better. An introduction to computer organization. Topics include number representation, combinational and sequential logic, computer instructions, memory organization, addressing modes, interrupt, input/output (I/O), assembly language programming, assemblers, and linkers.",
+    prerequisites: {
+      id: "CS 010A",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 100": {
+    id: "CS 100",
+    title: "Software Construction",
+    description: "5 Units, Lecture, 3hours; laboratory, 2 hours; discussion, 1 hour; individual study, 1 hour. Prerequisite(s): CS 010C with a grade of C- or better. Emphasizes development of software systems. Topics include design and implementation strategies and selection and mastery of programming languages, environment tools, and development processes. Develops skill in programming, testing, debugging, performance evaluation, component integration, maintenance, and documentation. Covers professional and ethical responsibilities and the need to stay current with technology.",
+    prerequisites: {
+      id: "CS 010C",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 105": {
+    id: "CS 105",
+    title: "Data Analysis Methods",
+    description: "4 Units, Lecture,3 hours; laboratory, 2 hours; individual study,1 hour. Prerequisite(s): CS 009B with a grade of C- or better or CS 010B with a grade of C- or better; restricted to class level standing of sophomore, junior, senior, or masters. An introduction to fundamental concepts and methods in data analysis and visualization essential to a variety of data science tasks. Designed to provide preparation for the data science major and for advanced courses in data analysis and applications of data science.",
+    prerequisites: {
+      type: "OR",
+      children: [
+        { id: "CS 009B", isCoreq: false },
+        { id: "CS 010B", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 106": {
+    id: "CS 106",
+    title: "Intro to Computer Security",
+    description: "4 Units, Lecture, 3 hours; laboratory, 1.5 hours; individual study, 1.5 hours. Prerequisite(s): CS 011 or MATH 011; CS 061; CS 010C; or consent of instructor. Introduction to security in computer systems and online services for computing majors. Studies security impact in computer science. Topics include both offensive and defensive security techniques, security mindset and concepts, and applications to real-world problems.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        {
+          type: "OR",
+          children: [
+            { id: "CS 011", isCoreq: false },
+            { id: "MATH 011", isCoreq: false }
+          ]
+        },
+        { id: "CS 061", isCoreq: false },
+        { id: "CS 010C", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 108": {
+    id: "CS 108",
+    title: "Data Science Ethics",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 105 or STAT 107 or CS 171; or consent of instructor. Covers ethics specifically related to data science. Topics include data privacy; data curation and storage; discrimination and bias arising in the machine learning process; statistical topics such as generalization, causality, curse of dimensionality, and sampling bias; data communication; and strategies for conceptualizing, measuring, and mitigating problems in data-driven decision-making. Cross-listed with STAT 108. Credit is awarded for one of the following CS 108, STAT 108, CS 212, or STAT 212.",
+    prerequisites: {
+      type: "OR",
+      children: [
+        { id: "CS 105", isCoreq: false },
+        { id: "STAT 107", isCoreq: false },
+        { id: "CS 171", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 110": {
+    id: "CS 110",
+    title: "Principles of Web Development",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s): CS 100. Provides an introduction to distributed systems, with a focus on web development techniques and the considerations to application scalability, security, reliability, and redundancy. Provides an in-depth study of technologies used for both back-end and front-end development, and how to design robust applications in the webs constantly evolving landscape.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 111": {
+    id: "CS 111",
+    title: "Discrete Structures",
+    description: "4 Units, Lecture, 3hours; discussion, 1 hour. Prerequisite(s):CS 010A; CS 011 or MATH 011; MATH 009C or MATH 09HC. A study of discrete mathematical structures emphasizing applications to computer science. Topics include asymptotic notation, generating functions, recurrence equations, elements of graph theory, trees, algebraic structures, and number theory.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 010A", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "CS 011", isCoreq: false },
+            { id: "MATH 011", isCoreq: false }
+          ]
+        },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 009C", isCoreq: false },
+            { id: "MATH 09HC", isCoreq: false }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 119L": {
+    id: "CS 119L",
+    title: "Laboratory in Problem Solving and Programming (1 unit)",
+    description: "1 Unit, Laboratory, 3 hours. Prerequisite(s): CS 010C with a grade of C or better, CS 111 with a grade of C or better; and consent of instructor. Explores techniques and skills applicable in developing software solutions to real-life algorithmic problems. Emphasizes systematic and rigorous approaches to problem-solving. Covers the end-to-end solution process including formulating models, choosing appropriate algorithmic tools and data structures, designing algorithms, implementation, and testing. Course is repeatable to a maximum of 8 units.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 010C", isCoreq: false },
+        { id: "CS 111", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 120A": {
+    id: "CS 120A",
+    title: "Logic Design",
+    description: "5 Units, Lecture, 3 hours; laboratory, 3 hours; individual study, 3 hours. Prerequisite(s): CS 061 with a grade of 'C-'or better. Covers design of digital systems. Includes Boolean algebra; combinational and sequential logic design; design and use of arithmetic logic units, carry-look ahead adders, multiplexors, decoders, comparators, multipliers, flip-flops, registers, and simple memories; state-machine design; and basic register-transfer level design. Uses hardware description languages, synthesis tools, programmable logic, and significant hardware prototyping. Cross-listed with EE 120A.",
+    prerequisites: {
+      id: "CS 061",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 120B": {
+    id: "CS 120B",
+    title: "Introduction to Embedded Systems",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 010B, CS 120A. Introduction to hardware and software design of digital computing systems embedded in electronic devices (e.g., digital cameras or portable video games). Includes embedded processor programming, custom process or design, standard peripherals, memories, interfacing, and hardware/software tradeoffs. Involves use of synthesis tools, programmable logic, microcontrollers, and developing working embedded systems. Cross-listed with EE 120B.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 010B", isCoreq: false },
+        { id: "CS 120A", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 122A": {
+    id: "CS 122A",
+    title: "Intermediate Embedded and Real-Time Systems",
+    description: "5 Lecture, 3 hours; laboratory, 6 hours. Prerequisite(s): CS 010B; CS 120B. Covers software and hardware design of embedded computing systems. Includes hardware and software codesign, advanced programming paradigms (including state machines and concurrent processes), real-time programming, operating systems, basic control systems, modern chip, and design technologies. Laboratories involve use of microcontrollers, embedded microprocessors, programmable logic, advanced simulation, and debug environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 010B", isCoreq: false },
+        { id: "CS 120B", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 130": {
+    id: "CS 130",
+    title: "Computer Graphics",
+    description: "4 Units, Lecture, 3hours; discussion, 1 hour. Prerequisite(s): CS 100; MATH 031, may be taken concurrently or EE 020B, may be taken concurrently; or consent of instructor. A study of the fundamentals of computer graphics necessary to design and build graphics applications. Examines raster graphics algorithms including scan-converting graphics primitives, anti-aliasing, and clipping. Also covers geometric transformations, viewing, solid modeling techniques, hidden-surface removal algorithms, color models, illumination, and shading.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 031", isCoreq: true },
+            { id: "EE 020B", isCoreq: true }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 131": {
+    id: "CS 131",
+    title: "Edge Computing",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100 or CS 120B. Covers industry standards for quality of service and security while leveraging performance constraints. Develops skill in deploying real-world applications using embedded artificial intelligence. Cross-listed with EE 131",
+    prerequisites: {
+      type: "OR",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 120B", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 135": {
+    id: "CS 135",
+    title: "Virtual/Augmented Reality",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 100. Covers the development of virtual reality (VR) worlds, including motion and physics of VR worlds. Includes design practices for immersive experiences, human visual perception, environmental and social interactions. Also includes positional tracking with sensors, augmented and mixed reality, and storage and transmission of virtual reality worlds.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 141": {
+    id: "CS 141",
+    title: "Intermediate Data Structures and Algorithms",
+    description: "4 Units, Lecture, 3 hours; discussion,1 hour. Prerequisite(s): CS 010C with a grad e of C- or better; CS 111; MATH 009C or MATH 09HC; proficiency in C++. Explores basic algorithm analysis using asymptotic notations, summation and recurrence relations, and algorithms and data structures for discrete structures including trees, strings, and graphs. Also covers general algorithm design techniques including 'divide-and-conquer,' the greedy method, and dynamic programming. Integrates knowledge of data structures, algorithms, and programming.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 010C", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 009C", isCoreq: false },
+            { id: "MATH 09HC", isCoreq: false }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 142": {
+    id: "CS 142",
+    title: "Algorithm engineering",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100, CS 141; or equivalent. Covers the design and implementation of sequential, parallel, cache-efficient, external-memory, and write-efficient algorithms for fundamental computational problems including sorting, searching, as well as a selection of problems in algebra, geometry, combinatorial optimization, and string processing. Emphasizes practical aspects of algorithm design, efficient implementation, and experimental methodology for performance evaluation.",
+    prerequisites: {
+      type: "OR",
+      children: [
+        {
+          type: "AND",
+          children: [
+            { id: "CS 100", isCoreq: false },
+            { id: "CS 141", isCoreq: false }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 145": {
+    id: "CS 145",
+    title: "Combinatorial Optimization Algorithms",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 141; MATH 031 or MATH 131. The study of efficient algorithm design techniques for combinatorial optimization problems. Topics include shortest paths, minimum spanning trees, network flows, maximum matchings, stable matchings, linear programming, duality, two-person games, algorithmic techniques for integer programming problems, NP-completeness, and approximation algorithms.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 141", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 031", isCoreq: false },
+            { id: "MATH 131", isCoreq: false }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 150": {
+    id: "CS 150",
+    title: "Automata and Formal Languages",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 014 with a grade of 'C-' or better; CS 111; MATH 009C (or MATH 09HC). A study of formal languages. Includes regular and context-free languages; computational models for generating these languages such as finite-state automata, pushdown automata, regular expressions, and context-free grammars; mathematical properties of the languages and models; and equivalence between the models. Also introduces Turing machines and decidability.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 014", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 009C", isCoreq: false },
+            { id: "MATH 09HC", isCoreq: false }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 152": {
+    id: "CS 152",
+    title: "Compiler Design",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 061, CS 100, CS 111, CS 150. Covers the fundamentals of compiler design. Includes lexical analysis, parsing, semantic analysis, compile-time memory organization, run-time memory organization, code generation, and compiler portability issues.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 061", isCoreq: false },
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        { id: "CS 150", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 153": {
+    id: "CS 153",
+    title: "Design of Operating Systems",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 061, CS 100, CS 111, C++ programming proficiency. Covers the principles and practice of operating system design. Includes concurrency, memory management, file systems, protection, security, command languages, scheduling, and system performance.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 061", isCoreq: false },
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 160": {
+    id: "CS 160",
+    title: "Concurrent Programming and Parallel Systems",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 061, CS 100, CS 111. A study of concurrent and parallel systems. Topics include modular structure and design, interprocess communication, synchronization, failures, persistence, and concurrency control. Also covers atomic transactions, recovery, language support, distributed interprocess communication, and implementation mechanisms. Provides preparation for the study of operating systems, databases, and computer networking.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 061", isCoreq: false },
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 161": {
+    id: "CS 161",
+    title: "Design and Architecture of Computer Systems",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 120A. A study of the fundamentals of computer design. Topics include the performance evaluation of microprocessors; instruction set design and measurements of use; microprocessor implementation techniques including multicycle and pipelined implementations; computer arithmetic; memory hierarchy; and input/output (I/O) systems.",
+    prerequisites: {
+      type: "OR",
+      children: [
+        { id: "CS 120A", isCoreq: false },
+      ]
+    },
+    upcoming: []
+  },
+  "CS 161L": {
+    id: "CS 161L",
+    title: "Laboratory in Design & Architecture of Computer Systems",
+    description: "2 Units, Lecture, 1 hour; laboratory, 3 hours. Prerequisite(s): CS 161 (may be taken concurrently). Covers the design and simulation of a complete computer system using hardware description language and simulator. Topics include instruction set architecture design; assemblers; datapath and control unit design; arithmetic and logic unit; memory and input/output (I/O) systems; and integration of all parts into a working computer system.",
+    prerequisites: {
+      id: "CS 161",
+      isCoreq: true
+    },
+    upcoming: []
+  },
+  "CS 162": {
+    id: "CS 162",
+    title: "Computer Architecture",
+    description: "4 Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 161 with a grade of 'C-' or better. The study of advanced processor design. Topics include CPU pipelining, data and control hazards, instruction-level parallelism, branch prediction, and dynamic scheduling of instructions. Also covers Very Long Instruction Word (VLIW) processing, multimedia support, design of network and embedded processors, basic multiprocessor design, shared memory and message passing, and network topologies.",
+    prerequisites: {
+      id: "CS 161",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 163": {
+    id: "CS 163",
+    title: "Privacy Technologies",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100; CS 165 is recommended; restricted to class level standing of junior, or senior; or consent of instructor. Covers issues regarding privacy in computer systems and online services. Introduces techniques for mitigating privacy threats through security and cryptography controls. Topics also include socio-technical aspects of privacy including law, ethics, and psychology. Letter or Petition for S/NC.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 164": {
+    id: "CS 164",
+    title: "Computer Networks",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 100, CS 111, CS 153. Covers the fundamentals of computer networks. Topics include layered network architecture, communication protocols, local area networks, UNIX network programming, verification, network security, and performance studies.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        { id: "CS 153", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 165": {
+    id: "CS 165",
+    title: "Computer Security",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 141, CS 153. Examines the ways in which information systems are vulnerable to security breaches. Topics include attacks; security labels, lattices, and policies; safeguards and countermeasures; intrusion detection; authorization and encryption techniques; networks; digital signatures, certificates, and passwords; privacy issues, firewalls, and spoofing; Trojan horses and computer viruses; CERT Coordination Center; and electronic commerce.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 141", isCoreq: false },
+        { id: "CS 153", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 166": {
+    id: "CS 166",
+    title: "Database Management Systems",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 100, CS 111. Covers architecture of database management systems; relational, network, and hierarchical models; distributed database concepts; query languages; implementation issues; and privacy and security of the database.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 167": {
+    id: "CS 167",
+    title: "Introduction to Big Data Management",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 100, CS 111; CS 167 online section: enrollment in the online Master-of-Science in Engineering program. Introduces the architecture of big-data systems and their applications in data management and processing. Describes the common functionality in big-data processing such as distributed storage, resource management, query processing, fault-tolerance, and programming APIs. Covers the popular big-data technologies such as distributed shared-nothing systems, NoSQL processing model, and semi-structured data management.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 168": {
+    id: "CS 168",
+    title: "Introduction to Very Large Scale Integration (VLSI) Design",
+    description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): CS 120A or consent of instructor. Studies integrated circuit fabrication, device characterization, and circuit simulation. Introduces basic device physics and physical design rules, MOS logic design, and timing and clock schemes. Covers layout generation, subsystem designs, and circuits for alternative logic styles. Also covers design and simulation using hardware description language and CAD tools. Crosslisted with EE 168.",
+    prerequisites: {
+      id: "CS 120A",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 169": {
+    id: "CS 169",
+    title: "Mobile Wireless Networks",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2 hours; extra reading, 1 hour. Prerequisite(s): CS 153 or consent of instructor. Introduces the fundamentals of wireless and mobile networks. Covers wireless channel models, MAC protocols, and wireless network architectures. Also covers cellular, WLAN and ad hoc networks, and routing in multi-hop wireless networks. Includes wireless security and the impact of wireless links on TCP and other transport layer solutions.",
+    prerequisites: {
+      id: "CS 153",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 170": {
+    id: "CS 170",
+    title: "Introduction to Artificial Intelligence",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100 with a grade of 'C-' or better, CS 111. An introduction to the field of artificial intelligence. Focuses on discretevalued problems. Covers heuristic search, problem representation, and classical planning. Also covers constraint satisfaction and logical inference.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 171": {
+    id: "CS 171",
+    title: "Introduction to Machine Learning and Data Mining",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): MATH 010A, MATH 031 or EE 020B; STAT 155 or EE 114; CS 100 or CS 120B. Introduces formalisms and methods in data mining and machine learning. Topics include data representation, supervised learning, and classification. Covers regression and clustering. Also covers rule learning, function approximation, and margin-based methods. Cross-listed with EE 142.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "MATH 010A", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "MATH 031", isCoreq: false },
+            { id: "EE 020B", isCoreq: false }
+          ]
+        },
+        {
+          type: "OR",
+          children: [
+            { id: "STAT 155", isCoreq: false },
+            { id: "EE 114", isCoreq: false }
+          ]
+        },
+        {
+          type: "OR",
+          children: [
+            { id: "CS 100", isCoreq: false },
+            { id: "CS 120B", isCoreq: false },
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 172": {
+    id: "CS 172",
+    title: "Introduction to Information Retrieval",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100; CS 111; EE 114 or STAT 155. Introduces information retrieval (IR) principles and techniques for indexing and searching document collections. Topics include Web search, text processing, ranking algorithms, search in social networks, and search evaluation. Also studies scalability issues in search engines. Satisfactory (S) or No Credit (NC) grading is not available.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        {
+          type: "OR",
+          children: [
+            { id: "EE 114", isCoreq: false },
+            { id: "STAT 155", isCoreq: false }
+          ]
+        }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 173": {
+    id: "CS 173",
+    title: "Introduction to NLP",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 150, may be taken concurrently. An overview of modern approaches for natural language processing. Focuses on major algorithms used in NLP for various applications such as part-of-speech tagging, parsing, named entity recognition, coreference resolution, sentiment analysis, and machine translation.",
+    prerequisites: {
+      id: "CS 150",
+      isCoreq: true
+    },
+    upcoming: []
+  },
+  "CS 175": {
+    id: "CS 175",
+    title: "Entrepreneurship in Computing",
+    description: "4 Units, Lecture, 3 hours; individual study, 3 hours. Prerequisite(s): CS 100, junior or senior standing. Introduces business and technological concepts to create companies based on computer technology. Covers technical aspects of real world IT projects. Includes developing software and services; understanding user requirements; designating usable systems; technological assessment. Also covers market analysis and strategy; legal and intellectual property, ethics and communication business issues; financial analysis.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 178A": {
+    id: "CS 178A",
+    title: "Project Sequence in CSE",
+    description: "4 Units, Lecture, 1 hour; laboratory, 3 hours; practicum, 6 hours. Prerequisite(s): CS 141, ENGR 180W; restricted to class level standing of senior. Under the direction of a faculty member, teams propose, design, build, test, and document software and/or hardware devices or systems. Emphasizes professional and ethical responsibilities and the need to stay current on technology and its global impact on economics, society, and the environment. Completed together, CS 178A and CS 178B may be applied as a substitute for the CS 179E/CS 179F/CS 179G/CS 179I/CS 179J/CS 179M/CS 179N CS major requirement. Graded In Progress (IP) until CS 178A and CS 178B are completed, at which time, a final letter grade is assigned.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 141", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 178B": {
+    id: "CS 178B",
+    title: "Project Sequence in CSE",
+    description: "4 Units, Lecture, 1 hour; laboratory, 3 hours; practicum, 6 hours. Prerequisite(s): CS 178A; restricted to class level standing of senior. Under the direction of a faculty member, teams propose, design, build, test, and document software and/or hardware devices or systems. Emphasizes professional and ethical responsibilities and the need to stay current on technology and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      id: "CS 178A",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 179F": {
+    id: "CS 179F",
+    title: "Project in Computer Science: Operating Systems",
+    description: "4 Units, Discussion, 1 hour; laboratory, 3 hours; research, 3 hours; extra reading, 3 hours. Prerequisite(s): CS 153 with a grade of 'C-' or better; ENGR 180W; 8 additional upper-division units in Computer Science. CS 160 is recommended. Covers the planning, design, implementation, testing, and documentation of an operating systems-related system. Incorporates techniques from previous related courses. Emphasizes professional and ethical responsibilities; the need to stay current on technology; and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 153", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 179G": {
+    id: "CS 179G",
+    title: "Project in Computer Science: Database Systems",
+    description: "4 Units, Discussion, 1 hour; laboratory, 3 hours; research, 3 hours; extra reading, 3 hours.Prerequisite(s): CS 100 and CS 166 with grades of 'C-' or better; ENGR 180W; 8 additional upper-division units in Computer Science. Covers the planning, design, implementation, testing, and documentation of a database-related system. Incorporates techniques from previous related courses. Emphasizes professional and ethical responsibilities; the need to stay current on technology; and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 166", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 179I": {
+    id: "CS 179I",
+    title: "Project in Computer Science: Networks",
+    description: "4 Units Discussion, 1 hour; laboratory, 3 hours; research, 3 hours; extra reading, 3 hours. Prerequisite(s): CS 100 and CS 164 with grades of 'C-' or better; ENGR 180W; 8 additional upperdivision units in Computer Science. Covers the planning, design, implementation, testing, and documentation of a network-related system. Incorporates techniques from previous related courses. Emphasizes professional and ethical responsibilities; the need to stay current on technology; and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 164", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 179J": {
+    id: "CS 179J",
+    title: "Project in Computer Science: Computer Architecture and Embedded Systems",
+    description: "4 Units, Discussion, 1 hour; laboratory, 3 hours; research, 3 hours; extra reading, 3 hours. Prerequisite(s): CS 100, CS 111, CS 120B, and CS 161 with grades of 'C-' or better or consent of instructor; ENGR 180W; 3 additional upper-division units in Computer Science. Covers the planning, design, implementation, testing, and documentation of a computer architecture and embedded systems-related system. Incorporates using techniques presented in previous related courses. Emphasizes professional and ethical responsibilities; the need to stay current on technology; and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        { id: "CS 120B", isCoreq: false },
+        { id: "CS 161", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 179M": {
+    id: "CS 179M",
+    title: "Project in Computer Science: Artificial Intelligence",
+    description: "4 Units, Discussion, 1 hour; laboratory, 3 hours; research, 3 hours; extra reading, 3 hours. Prerequisite(s): CS 100, CS 111, and CS 170 with grades of 'C-' or better; ENGR 180W; 8 additional upper-division units in Computer Science. Covers the planning, design, implementation, testing, and documentation of an artificial intelligence-related system. Incorporates techniques presented in previous related courses. Emphasizes professional and ethical responsibilities; the need to stay current on technology; and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        { id: "CS 170", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 179N": {
+    id: "CS 179N",
+    title: "Project in Computer Science - Graphics and Electronic Games",
+    description: "4 Units, Discussion, 1 hour; laboratory, 3 hours; research, 3 hours; extra reading, 3 hours. Prerequisite(s): CS 130 with a grade of C- or better; ENGR 180W; 8 additional upper-division units in Computer Science. Covers the planning, design, implementation, testing, and documentation of a graphics or electronic game-related system. Incorporates using techniques presented in previous related courses. Emphasizes professional and ethical responsibilities; the need to stay current on technology; and its global impact on economics, society, and the environment.",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 130", isCoreq: false },
+        { id: "ENGR 180W", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 180": {
+    id: "CS 180",
+    title: "Introduction to Software Engineering",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s): CS 100. A study of software engineering techniques for the development, maintenance, and evolution of large software systems. Topics include requirements and specification; system design and implementation; debugging, testing, and quality assurance; reengineering; project management; software process; tools; and environments.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 181": {
+    id: "CS 181",
+    title: "Principles of Programming Languages",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2hours; individual study, 1 hour. Prerequisite(s):CS 061; CS 100; CS 111; CS 150. Covers the principles of programming language design. Includes the study and comparison of several programming languages, their features, and their implementations",
+    prerequisites: {
+      type: "AND",
+      children: [
+        { id: "CS 061", isCoreq: false },
+        { id: "CS 100", isCoreq: false },
+        { id: "CS 111", isCoreq: false },
+        { id: "CS 150", isCoreq: false }
+      ]
+    },
+    upcoming: []
+  },
+  "CS 182": {
+    id: "CS 182",
+    title: "Software Testing and Verification",
+    description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100. A study of modern techniques to assess the quality of software artifacts through functional, performance, and reliability testing. Introduces black box and white box testing techniques. Covers the application of modern testing tools to software units, components, subsystems, and entire systems. Also covers verification as a complementary technique to testing.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 183": {
+    id: "CS 183",
+    title: "UNIX System Administration",
+    description: "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s): CS 100. Explores the technical aspects of system administration on a Unix system including advanced Unix. Includes managing system devices, operating system installation, communications, and networking.",
+    prerequisites: {
+      id: "CS 100",
+      isCoreq: false
+    },
+    upcoming: []
+  },
+  "CS 189": {
+    id: "CS 189",
+    title: "Apprentice Tutoring (1 unit)",
+    description: "1 Unit, Activity, 3 hours. Prerequisite(s): permission established by computer science faculty and consent of instructor. Aids in the learning of effective tutoring methods, such as best practices for leading Computer Science tutoring sessions, growth mindset, learning modalities, and student relations. Graded Satisfactory (S) or No Credit (NC).",
+    prerequisites: null,
+    upcoming: []
+  }
+};
+
+export default courses;

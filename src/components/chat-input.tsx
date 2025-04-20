@@ -1,17 +1,22 @@
-"use client"
+"use client";
 
-import type { FormEvent, ChangeEvent } from "react"
-import { SendHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import type { FormEvent, ChangeEvent } from "react";
+import { SendHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ChatInputProps {
-  input: string
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
-  isLoading: boolean
+  input: string;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
 }
 
-export default function ChatInput({ input, handleInputChange, handleSubmit, isLoading }: ChatInputProps) {
+export default function ChatInput({
+  input,
+  handleInputChange,
+  handleSubmit,
+  isLoading,
+}: ChatInputProps) {
   return (
     <form onSubmit={handleSubmit} className="relative flex items-center">
       <div className="relative flex-1">
@@ -35,5 +40,5 @@ export default function ChatInput({ input, handleInputChange, handleSubmit, isLo
         <SendHorizontal className="h-5 w-5 text-white" />
       </Button>
     </form>
-  )
+  );
 }
