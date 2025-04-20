@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import ChatMessage from "@/components/chatbot/chat-message";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Message } from "ai";
 
 export default function ChatMessages({
   messages,

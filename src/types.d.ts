@@ -1,3 +1,5 @@
+// Courses
+
 interface Courses {
   [id: string]: Course;
 }
@@ -18,4 +20,12 @@ interface PrereqTree {
 interface PrereqCourse {
   id: string;
   isCoreq: boolean;
+}
+
+// Messages
+
+interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
 }

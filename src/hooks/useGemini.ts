@@ -1,11 +1,5 @@
 import { useState, useCallback } from "react";
 
-interface Message {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-}
-
 export function useGemini() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");

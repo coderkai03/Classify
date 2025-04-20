@@ -1,7 +1,5 @@
 import courseData from "@/data/ucr-courses.json";
-
 import ReactMarkdown from "react-markdown";
-import type { Message } from "ai";
 
 export default function ChatMessage({ message }: { message: Message }) {
   const isUser = message.role === "user";
