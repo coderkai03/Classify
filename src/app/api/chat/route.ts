@@ -3,13 +3,15 @@ import courseData from "@/data/ucr_courses.json";
 import majorRequirements from "@/data/cs-major-reqs.json";
 
 export async function POST(req: Request) {
-    const { messages } = await req.json();
-    const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY });
+  const { messages } = await req.json();
+  const ai = new GoogleGenAI({
+    apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+  });
 
-    // Get the latest user message
-    const latestMessage = messages[messages.length - 1];
-    console.log("Received messages:", messages); // Debug log
-    console.log("Latest message:", latestMessage); // Debug log
+  // Get the latest user message
+  const latestMessage = messages[messages.length - 1];
+  console.log("Received messages:", messages); // Debug log
+  console.log("Latest message:", latestMessage); // Debug log
 
     const response = await ai.models.generateContent({
         model: "gemini-2.0-flash",

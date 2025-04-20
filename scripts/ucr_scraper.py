@@ -36,10 +36,10 @@ def scrape_ucr_courses():
                 courses.append(course)
         
         # Export to JSON file
-        with open('ucr_courses.json', 'w', encoding='utf-8') as f:
+        with open('ucr-courses.json', 'w', encoding='utf-8') as f:
             json.dump(courses, f, indent=4, ensure_ascii=False)
             
-        print(f"Successfully scraped {len(courses)} courses and saved to ucr_courses.json")
+        print(f"Successfully scraped {len(courses)} courses and saved to ucr-courses.json")
         
     except requests.RequestException as e:
         print(f"Error fetching the webpage: {e}")
