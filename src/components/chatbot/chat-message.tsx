@@ -23,10 +23,10 @@ export default function ChatMessage({ message }: { message: Message }) {
 
       let formattedContent = '';
       if (upcoming.length > 0) {
-        formattedContent += "## Upcoming Courses\n" + upcoming.join("\n");
+        formattedContent += "## Upcoming Courses\n\n" + upcoming.join("\n");
       }
       if (other.length > 0) {
-        formattedContent += "## \n\nOther Courses\n(Refer to full UCR course catalog for course details)\n" + other.join("\n");
+        formattedContent += "\n\n## Other Courses\n\n" + "(Refer to full UCR course catalog for course details)\n\n" + other.join("\n");
       }
 
       return formattedContent || content;
