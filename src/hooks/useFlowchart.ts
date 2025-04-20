@@ -1,3 +1,5 @@
+import courseData from "@/data/ucr-courses.json";
+
 export function useFlowchart() {
   const nodes = [
     {

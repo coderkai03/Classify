@@ -1,6 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import courseData from "@/data/ucr-courses.json";
-import majorRequirements from "@/data/cs-major-reqs.json";
+import majorRequirements from "@/data/ucr-major-reqs.json";
 
 export async function POST(req: Request) {
   const { messages } = await req.json();

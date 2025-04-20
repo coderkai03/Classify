@@ -2,15 +2,14 @@ import type React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
 
 import Header from "@/components/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NeonChat - AI Chatbot",
-  description: "A neon-themed AI chatbot interface",
+  title: "TODO",
+  description: "TODO",
 };
 
 export default function RootLayout({
@@ -20,18 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`h-screen m-0 ${inter.className}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex flex-col h-full bg-black border-blue-500 border">
-            <Header />
-            <main className="flex-1 overflow-auto">{children}</main>
-          </div>
-        </ThemeProvider>
+      <body
+        className={`w-screen h-screen m-0 flex flex-col overflow-hidden ${inter.className}`}
+      >
+        <Header />
+        {children}
       </body>
     </html>
   );
