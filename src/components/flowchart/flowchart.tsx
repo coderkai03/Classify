@@ -4,11 +4,15 @@ import "@xyflow/react/dist/style.css";
 import { useFlowchart } from "@/hooks/useFlowchart";
 
 export default function Flowchart({ data, prev }: { data: string,  prev: string }) {
-  const { nodes, edges } = useFlowchart({ data, prev });
+  const result = useFlowchart({ data, prev });
+  
+  if (typeof result === 'string') {
+    return <div>Invalid data format</div>;
+  }
 
   return (
     <div className="h-full w-full rounded-lg p-4 bg-white text-black border border-red-500">
-      <ReactFlow nodes={nodes} edges={edges} />
+      <ReactFlow nodes={result.nodes} edges={result.edges} />
     </div>
   );
 }

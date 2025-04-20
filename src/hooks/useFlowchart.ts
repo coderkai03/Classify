@@ -1,4 +1,5 @@
 import courseData from "@/data/ucr-courses.json";
+import { MarkerType } from "@xyflow/react";
 
 function findFirstSubstringInList(
   s: string | undefined,
@@ -17,6 +18,12 @@ function findFirstSubstringInList(
 }
 
 export function useFlowchart({ data, prev }: { data: string; prev: string }) {
+  
+  console.log("\n\n");
+  console.log("data", data);
+  console.log("prev", prev);
+  console.log("\n\n");
+  
   const mentionedCourse = findFirstSubstringInList(
     prev.toUpperCase(),
     Object.keys(courseData as Courses)
@@ -80,6 +87,13 @@ export function useFlowchart({ data, prev }: { data: string; prev: string }) {
       id: `e${prereqId}-${node.id}`,
       source: prereqId,
       target: node.id,
+      type: "smoothstep",
+      markerStart: {
+        type: MarkerType.ArrowClosed,
+        color: "#000000",
+        width: 30,
+        height: 30,
+      },
     }));
   });
 
