@@ -16,12 +16,12 @@ export async function POST(req: Request) {
         contents: 
             "Here is the student's course history and/or concerns: " + 
             latestMessage.content + 
-            ". Determine which courses the student should take next. " +
-            "Use the following UCR course catalog and prerequisites to help you make your decision: " + 
-            JSON.stringify(courseData) + 
-            "For next courses, consider the following UCR Computer Science major requirements: " + 
-            majorReqs.text +
-            ". Separate courses response into 2 sections: 1) Prerequisites and 2) Up Next. Return the course IDs, names, and short descriptions. Include spacing between each course and section.",
+            ".\n\nDetermine which courses the student should take next. " +
+            "Use the following UCR major requirements + course catalog to help you make your decision. If the future courses have prerequisites that the student has not yet taken, include those in the upcoming courses. Assume the student has completed prerequisites for the courses they have taken: " + 
+            "\n\nMajor Requirements: " + 
+            majorReqs.text + 
+            "\n\nCourse Catalog: " + 
+            JSON.stringify(courseData),
         config: {
             systemInstruction: "You are a college counselor. You are given a student's course history and you need to help them choose the best remaining courses to take.",
         },
