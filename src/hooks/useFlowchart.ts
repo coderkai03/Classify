@@ -1,6 +1,10 @@
 import courseData from "@/data/ucr-courses.json";
+import { MarkerType } from "@xyflow/react";
 
 export function useFlowchart({ data }: { data: string }) {
+  console.log("\n\n");
+  console.log(data);
+  console.log("\n\n");
   if (data === "" || data[0] !== "[") return { nodes: [], edges: [] };
 
   const renderCourseInfo = (content: string) => {
@@ -51,7 +55,14 @@ export function useFlowchart({ data }: { data: string }) {
     return prereqIds.map(prereqId => ({
       id: `e${prereqId}-${node.id}`,
       source: prereqId,
-      target: node.id
+      target: node.id,
+      type: "smoothstep",
+      markerStart: {
+        type: MarkerType.ArrowClosed,
+        color: "#000000",
+        width: 30,
+        height: 30,
+      },
     }));
   });
 
