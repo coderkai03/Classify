@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       "\n\n1. If the student has not yet taken a prerequisite or corequisite for a course, include that course in the upcoming courses. " +
       "\n\n2. Consider course conditions (e.g. course X AND course Y or course Z OR course W). " +
       "\n\n3. Assume the student has taken all prerequisites for the courses they are taking: " +
-      "\n\nReturn ONLY a JSON array of course IDs that the student should take next. Include the course(s) mentioned in the student's message.",
+      "\n\nReturn ONLY a JSON array of course IDs that the student should take next. Include the course(s) mentioned in the student's message and a brief preface for the courses you recommend in the first index of the array.",
     config: {
       systemInstruction:
         "You are a college counselor. Help the student plan their next courses. Return ONLY a JSON array of course IDs, nothing else.",
