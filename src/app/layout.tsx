@@ -27,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col h-full bg-black border-blue-500 border">
+          <div className="flex flex-col h-full bg-black">
             <Header />
             <main className="flex-1 overflow-auto">{children}</main>
           </div>
