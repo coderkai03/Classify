@@ -1,4 +1,9 @@
-import { ReactFlow, Background, useReactFlow, ReactFlowProvider, SmoothStepEdge } from "@xyflow/react";
+import {
+  ReactFlow,
+  Background,
+  ReactFlowProvider,
+  SmoothStepEdge,
+} from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useState } from "react";
 
@@ -15,13 +20,13 @@ function FlowchartInner({ data, prev }: { data: string, prev: string }) {
   const { nodes, edges } = useFlowchart({ data, prev });
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
-  const customNodes = nodes.map(node => ({
+  const customNodes = nodes.map((node) => ({
     ...node,
-    type: 'custom',
+    type: "custom",
     data: {
       ...node.data,
       id: node.id,
-      title: node.data.label.split('\n')[1] || '',
+      title: node.data.label.split("\n")[1] || "",
     },
   }));
 
@@ -56,7 +61,13 @@ function FlowchartInner({ data, prev }: { data: string, prev: string }) {
   );
 }
 
-export default function Flowchart({ data, prev }: { data: string, prev: string }) {
+export default function Flowchart({
+  data,
+  prev,
+}: {
+  data: string;
+  prev: string;
+}) {
   return (
     <div className="h-[800px] w-full rounded-xl border bg-background shadow-sm">
       <ReactFlowProvider>
