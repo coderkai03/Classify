@@ -29,7 +29,7 @@ def scrape_ucr_courses():
             # Only process rows that have 3 columns
             if len(cols) == 3:
                 course = {
-                    "course_id": cols[0].get_text(strip=True),
+                    "id": cols[0].get_text(strip=True),
                     "title": cols[1].get_text(strip=True),
                     "description": cols[2].get_text(strip=True)
                 }

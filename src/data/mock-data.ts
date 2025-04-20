@@ -15,14 +15,12 @@ const courses: Courses = {
     id: "ENGR 001",
     title: "Professional Development and Mentoring",
     description: "1 Unit, Activity, 30 hours per quarter. Provides freshmen with involvement in professional development activities. Activities to be performed are program-specific, and may include projects, industry overviews and interactions, involvement with professional societies and clubs, team building, career guidance, and coverage of ethics and lifelong learning issues. E. Bioengineering; F. Chemical Engineering; G. Computer Engineering; I. Computer Science; J. Electrical Engineering; K. Environmental Engineering; M. Cmptr Scnce Business Applctns; N. Mechanical Engineering;",
-    prerequisites: null,
     upcoming: []
   },
   "ENGR 101": {
     id: "ENGR 101",
     title: "Professional Development and Mentoring",
     description: "1 Unit, Activity, 30 hours per quarter. Prerequisite(s): restricted to class level standing of junior; restricted to major(s) Bioengineering, Bioengineering BS + MS, Chemical Engineering, Chemical Engineering BS + MS, Computer Engineering, Computer Science, Computer Science BS + MS, Electrical Engineering, Electrical Engineering BS + MS, Environmental Engineering, Environmental Engr BS + MS, Materials Science and Engineer, Mechanical Engineering, Mechanical Engineering BS + MS. Provides juniors with involvement in professional development activities. Activities to be performed are program-specific, and may include projects, industry overviews and interactions, involvement with professional societies and clubs, team building, career guidance, and coverage of ethics and lifelong learning issues. E. Bioengineering; F. Chemical Engineering; G. Computer Engineering; I. Computer Science; J. Electrical Engineering; K. Environmental Engineering; M. Cmptr Scnce Business Applctns; N. Mechanical Engineering.",
-    prerequisites: null,
     upcoming: []
   },
   "ENGR 180W": {
@@ -39,21 +37,18 @@ const courses: Courses = {
     id: "CS 005",
     title: "Introduction to Computer Programming",
     description: "4 Units, Lecture, 3 hours; laboratory,2 hours; individual study, 1 hour. An introduction to computer programming for nonengineering and nonscience majors and for those considering taking CS 010A but needing additional preparation. Topics include the history of computing, basic computer operation, the notion of an algorithm, and programming constructs such as variables, expressions, input/output, branches, loops, functions, parameters, arrays, and strings. Credit is not awarded for CS 005 if it has already been awarded for CS 010A.",
-    prerequisites: null,
     upcoming: []
   },
   "CS 006": {
     id: "CS 006",
     title: "Effective Use of the World Wide Web",
     description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): none. Adetailed introduction to the Internet fornon-engineering majors. Covers Web tools,e-communities, e-commerce, power searching,and verification of information, privacy, andother legal and societal issues.",
-    prerequisites: null,
     upcoming: []
   },
   "CS 008": {
     id: "CS 008",
     title: "Introduction to Computing",
     description: "4 Units, Lecture, 3 hours; laboratory, 3 hours. Prerequisite(s): none. Includes operating system basics (Windows and Unix),word processing, spreadsheets, databases(e.g., Access), e-mail, the Internet, and the World Wide Web. Designed for students not majoring in computer science, engineering, mathematics, or science. Credit is not awarded for CS 008 if it has already been awarded for CS 010A.",
-    prerequisites: null,
     upcoming: []
   },
   "CS 009A": {
@@ -148,7 +143,6 @@ const courses: Courses = {
     id: "CS 042",
     title: "A Hitchhiker's Guide to Artificial Intelligence",
     description: "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): none. Surveys basic concepts and techniques underpinning modern AI including problem solving, automated reasoning, game AI, vision and language, neural networks, and robotics. Explores history, ethics, use cases, and applications. Introduces basic use of Python for building and using AI but expects no prior experience. Intended for non-engineering majors.",
-    prerequisites: null,
     upcoming: []
   },
   "CS 061": {
@@ -823,7 +817,6 @@ const courses: Courses = {
     id: "CS 189",
     title: "Apprentice Tutoring (1 unit)",
     description: "1 Unit, Activity, 3 hours. Prerequisite(s): permission established by computer science faculty and consent of instructor. Aids in the learning of effective tutoring methods, such as best practices for leading Computer Science tutoring sessions, growth mindset, learning modalities, and student relations. Graded Satisfactory (S) or No Credit (NC).",
-    prerequisites: null,
     upcoming: []
   }
 };
