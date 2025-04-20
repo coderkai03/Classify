@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import Chatbot from "@/components/chatbot/chatbot";
 import Flowchart from "@/components/flowchart/flowchart";
 
@@ -9,7 +11,7 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable";
 
-import { useState } from "react";
+import { Message } from "@/types";
 
 export default function Home() {
   const [homeMessage, setHomeMessage] = useState<Message | null>(null);

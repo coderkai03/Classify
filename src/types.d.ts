@@ -1,10 +1,8 @@
-// Courses
-
-interface Courses {
+export interface Courses {
   [id: string]: Course;
 }
 
-interface Course {
+export interface Course {
   id: string;
   title: string;
   description: string;
@@ -12,19 +10,17 @@ interface Course {
   upcoming?: string[];
 }
 
-interface PrereqTree {
+export interface PrereqTree {
   type: "AND" | "OR";
   children: (PrereqTree | PrereqCourse)[];
 }
 
-interface PrereqCourse {
+export interface PrereqCourse {
   id: string;
   isCoreq: boolean;
 }
 
-// Messages
-
-interface Message {
+export interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
