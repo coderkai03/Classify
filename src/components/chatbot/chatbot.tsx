@@ -6,12 +6,16 @@ import { useGemini } from "@/hooks/useGemini";
 import ChatMessages from "@/components/chatbot/chat-messages";
 import ChatInput from "@/components/chatbot/chat-input";
 
-export default function Chatbot() {
+export default function Chatbot({
+  setHomeMessage,
+}: {
+  setHomeMessage: (message: Message) => void;
+}) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useGemini();
 
   useEffect(() => {
-    console.log(messages.at(-1)?.content);
+    setHomeMessage(messages.at(-1) as Message);
   }, [messages]);
 
   return (

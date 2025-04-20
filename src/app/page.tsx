@@ -1,3 +1,5 @@
+"use client";
+
 import Chatbot from "@/components/chatbot/chatbot";
 import Flowchart from "@/components/flowchart/flowchart";
 
@@ -7,7 +9,10 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable";
 
+import { useState } from "react";
+
 export default function Home() {
+  const [homeMessage, setHomeMessage] = useState<Message | null>(null);
   return (
     <main className="flex-1 flex overflow-hidden">
       <ResizablePanelGroup direction="horizontal" className="flex-1 min-w-0">
@@ -18,7 +23,7 @@ export default function Home() {
           className="flex flex-col min-h-0"
         >
           <div className="flex-1 min-h-0 h-full p-4">
-            <Chatbot />
+            <Chatbot setHomeMessage={setHomeMessage} />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-gray-200" />
@@ -28,7 +33,7 @@ export default function Home() {
           className="flex flex-col min-h-0"
         >
           <div className="flex-1 min-h-0 h-full p-4">
-            <Flowchart />
+            <Flowchart data={homeMessage?.content || ""} />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
