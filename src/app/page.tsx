@@ -24,7 +24,10 @@ export default function Home() {
           className="flex flex-col min-h-0"
         >
           <div className="flex-1 min-h-0 h-full p-4">
-            <Chatbot setHomeMessage={setHomeMessage} setPrevMessage={setPrevMessage} />
+            <Chatbot
+              setHomeMessage={setHomeMessage}
+              setPrevMessage={setPrevMessage}
+            />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-blue-300" />
@@ -34,7 +37,10 @@ export default function Home() {
           className="flex flex-col min-h-0"
         >
           <div className="flex-1 min-h-0 h-full p-4">
-            <Flowchart data={homeMessage?.content || ""} prev={prevMessage?.content || ""} />
+            <Flowchart
+              data={homeMessage?.content || ""}
+              prev={prevMessage?.content || ""}
+            />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

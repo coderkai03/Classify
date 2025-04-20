@@ -8,7 +8,7 @@ import ChatInput from "@/components/chatbot/chat-input";
 
 export default function Chatbot({
   setHomeMessage,
-  setPrevMessage
+  setPrevMessage,
 }: {
   setHomeMessage: (message1: Message) => void;
   setPrevMessage: (message2: Message) => void;
@@ -23,10 +23,7 @@ export default function Chatbot({
 
   return (
     <div className="flex flex-col h-full rounded-xl overflow-hidden border border-blue-300 shadow-md">
-      <ChatMessages
-        messages={messages}
-        isLoading={isLoading}
-      />
+      <ChatMessages messages={messages} isLoading={isLoading} />
       <ChatInput
         input={input}
         handleInputChange={handleInputChange}

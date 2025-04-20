@@ -25,12 +25,11 @@ function findFirstSubstringInList(
 }
 
 export function useFlowchart({ data, prev }: { data: string; prev: string }) {
-  
   console.log("\n\n");
   console.log("data", data);
   console.log("prev", prev);
   console.log("\n\n");
-  
+
   const mentionedCourse = findFirstSubstringInList(
     prev.toUpperCase(),
     Object.keys(courseData as Courses)
@@ -72,7 +71,7 @@ export function useFlowchart({ data, prev }: { data: string; prev: string }) {
   const existingNodes: Node[] = [];
   const nonExistingNodes: Node[] = [];
 
-  courseList.forEach((course, index) => {
+  courseList.forEach((course) => {
     const [header] = course.split("\n");
     const [id, title] = header.split(": ");
 
@@ -175,21 +174,21 @@ export function useFlowchart({ data, prev }: { data: string; prev: string }) {
     const indexInLevel = nodesInLevel.indexOf(node.id);
 
     node.position = {
-      x: INITIAL_PADDING + (indexInLevel * LEVEL_WIDTH),
-      y: INITIAL_PADDING + ((maxLevel - level) * LEVEL_HEIGHT)
+      x: INITIAL_PADDING + indexInLevel * LEVEL_WIDTH,
+      y: INITIAL_PADDING + (maxLevel - level) * LEVEL_HEIGHT,
     };
   });
 
   // Position non-existing nodes in a vertical stack on the right
   const rightmostX = Math.max(
-    ...existingNodes.map(node => node.position.x),
+    ...existingNodes.map((node) => node.position.x),
     INITIAL_PADDING + LEVEL_WIDTH
   );
-  
+
   nonExistingNodes.forEach((node, index) => {
     node.position = {
       x: rightmostX + LEVEL_WIDTH, // Place to the right of existing nodes
-      y: INITIAL_PADDING + (index * NON_EXISTING_COURSE_PADDING) // Stack vertically
+      y: INITIAL_PADDING + index * NON_EXISTING_COURSE_PADDING, // Stack vertically
     };
   });
 

@@ -21,7 +21,9 @@ export default function ChatMessages({
       style={{ scrollbarWidth: "thin" }}
     >
       <div ref={messagesEndRef} />
-      {isLoading && <Skeleton className="w-[100px] h-[20px] rounded-full bg-blue-200" />}
+      {isLoading && (
+        <Skeleton className="w-[100px] h-[20px] rounded-full bg-blue-200" />
+      )}
       {messages.length === 0 ? (
         <div className="h-full w-full flex justify-center items-center text-blue-700">
           Start typing!

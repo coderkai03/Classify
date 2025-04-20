@@ -9,7 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Classify",
-  description: "cleaner class schedules using ai",
+  description:
+    "Create informational, visually stunning class schedules using AI!",
 };
 
 export default function RootLayout({

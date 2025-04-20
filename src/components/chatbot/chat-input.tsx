@@ -28,12 +28,12 @@ export default function ChatInput({
         onChange={handleInputChange}
         disabled={isLoading}
         placeholder="Type your message..."
-        className="flex-1 bg-white shadow-sm border-blue-200 active:outline-blue-800 focus:outline-blue-800"
+        className="flex-1 bg-white shadow-sm border-blue-200"
       />
       <Button
         type="submit"
         size="icon"
-        className="ml-1 bg-blue-600 hover:bg-blue-700"
+        className="ml-1 bg-blue-500 hover:bg-blue-600"
         variant="default"
         aria-label="Send"
         disabled={isLoading || input.trim() === ""}

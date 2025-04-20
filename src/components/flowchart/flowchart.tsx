@@ -1,4 +1,9 @@
-import { ReactFlow, Background, useReactFlow, ReactFlowProvider, SmoothStepEdge } from "@xyflow/react";
+import {
+  ReactFlow,
+  Background,
+  ReactFlowProvider,
+  SmoothStepEdge,
+} from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
 import { useFlowchart } from "@/hooks/useFlowchart";
@@ -9,28 +14,16 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
-const defaultEdgeOptions = {
-  style: {
-    strokeWidth: 2,
-    stroke: 'hsl(var(--primary))',
-  },
-  type: 'smoothstep',
-  markerEnd: {
-    type: 'arrowclosed',
-    color: 'hsl(var(--primary))',
-  },
-};
-
-function FlowchartInner({ data, prev }: { data: string, prev: string }) {
+function FlowchartInner({ data, prev }: { data: string; prev: string }) {
   const { nodes, edges } = useFlowchart({ data, prev });
 
-  const customNodes = nodes.map(node => ({
+  const customNodes = nodes.map((node) => ({
     ...node,
-    type: 'custom',
+    type: "custom",
     data: {
       ...node.data,
       id: node.id,
-      title: node.data.label.split('\n')[1] || '',
+      title: node.data.label.split("\n")[1] || "",
     },
   }));
 
@@ -41,14 +34,14 @@ function FlowchartInner({ data, prev }: { data: string, prev: string }) {
       nodeTypes={nodeTypes}
       fitView
       proOptions={{ hideAttribution: true }}
-      edgeTypes={{smoothstep: SmoothStepEdge}}
+      edgeTypes={{ smoothstep: SmoothStepEdge }}
       onNodeClick={(event, node) => {
         console.log(node);
       }}
     >
-      <Background 
+      <Background
         color="hsl(var(--muted-foreground))"
-        style={{ backgroundColor: 'hsl(var(--background))' }}
+        style={{ backgroundColor: "hsl(var(--background))" }}
         className="size-20 dots gap-20"
       />
       <FlowchartControls />
@@ -56,7 +49,13 @@ function FlowchartInner({ data, prev }: { data: string, prev: string }) {
   );
 }
 
-export default function Flowchart({ data, prev }: { data: string, prev: string }) {
+export default function Flowchart({
+  data,
+  prev,
+}: {
+  data: string;
+  prev: string;
+}) {
   return (
     <div className="h-[800px] w-full rounded-xl border bg-background shadow-sm">
       <ReactFlowProvider>
