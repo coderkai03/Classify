@@ -1,18 +1,64 @@
-import { ReactFlow } from "@xyflow/react";
+import { ReactFlow, Background, useReactFlow, ReactFlowProvider, SmoothStepEdge } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
 import { useFlowchart } from "@/hooks/useFlowchart";
+import { CustomNode } from "./custom-node";
+import { FlowchartControls } from "./flowchart-controls";
 
-export default function Flowchart({ data }: { data: string }) {
-  const result = useFlowchart({ data });
-  
-  if (typeof result === 'string') {
-    return <div>Invalid data format</div>;
-  }
+const nodeTypes = {
+  custom: CustomNode,
+};
+
+const defaultEdgeOptions = {
+  style: {
+    strokeWidth: 2,
+    stroke: 'hsl(var(--primary))',
+  },
+  type: 'smoothstep',
+  markerEnd: {
+    type: 'arrowclosed',
+    color: 'hsl(var(--primary))',
+  },
+};
+
+function FlowchartInner({ data }: { data: string }) {
+  const { nodes, edges } = useFlowchart({ data });
+
+  const customNodes = nodes.map(node => ({
+    ...node,
+    type: 'custom',
+    data: {
+      ...node.data,
+      id: node.id,
+      title: node.data.label.split('\n')[1] || '',
+    },
+  }));
 
   return (
-    <div className="h-full w-full rounded-lg p-4 bg-white text-black border border-red-500">
-      <ReactFlow nodes={result.nodes} edges={result.edges} />
+    <ReactFlow
+      nodes={customNodes}
+      edges={edges}
+      nodeTypes={nodeTypes}
+      fitView
+      proOptions={{ hideAttribution: true }}
+      edgeTypes={{smoothstep: SmoothStepEdge}}
+    >
+      <Background 
+        color="hsl(var(--muted-foreground))"
+        style={{ backgroundColor: 'hsl(var(--background))' }}
+        className="size-20 dots gap-20"
+      />
+      <FlowchartControls />
+    </ReactFlow>
+  );
+}
+
+export default function Flowchart({ data }: { data: string }) {
+  return (
+    <div className="h-[800px] w-full rounded-xl border bg-background shadow-sm">
+      <ReactFlowProvider>
+        <FlowchartInner data={data} />
+      </ReactFlowProvider>
     </div>
   );
 }

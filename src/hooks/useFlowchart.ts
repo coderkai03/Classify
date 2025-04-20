@@ -57,11 +57,18 @@ export function useFlowchart({ data }: { data: string }) {
       source: prereqId,
       target: node.id,
       type: "smoothstep",
+      animated: true,
       markerStart: {
         type: MarkerType.ArrowClosed,
         color: "#000000",
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
+      },
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+        color: "#000000",
+        width: 20,
+        height: 20,
       },
     }));
   });
@@ -99,8 +106,9 @@ export function useFlowchart({ data }: { data: string }) {
   });
 
   const maxLevel = Math.max(...Array.from(nodeLevels.values()));
-  const LEVEL_HEIGHT = 150;
-  const LEVEL_WIDTH = 250;
+  const LEVEL_HEIGHT = 250;
+  const LEVEL_WIDTH = 350;
+  const INITIAL_PADDING = 100;
 
   // Second pass: position nodes based on their level
   mappedNodes.forEach(node => {
@@ -109,8 +117,8 @@ export function useFlowchart({ data }: { data: string }) {
     const indexInLevel = nodesInLevel.indexOf(node.id);
     
     node.position = {
-      x: 100 + (indexInLevel * LEVEL_WIDTH),
-      y: 100 + ((maxLevel - level) * LEVEL_HEIGHT) // Reverse Y to have prerequisites at top
+      x: INITIAL_PADDING + (indexInLevel * LEVEL_WIDTH),
+      y: INITIAL_PADDING + ((maxLevel - level) * LEVEL_HEIGHT)
     };
   });
 

@@ -8,8 +8,8 @@ import Header from "@/components/header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "TODO",
-  description: "TODO",
+  title: "Classify",
+  description: "cleaner class schedules using ai",
 };
 
 export default function RootLayout({

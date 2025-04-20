@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       "\n\nReturn ONLY a JSON array of course IDs that the student should take next.",
     config: {
       systemInstruction:
-        "You are a college counselor. Return ONLY a JSON array of course IDs, nothing else.",
+        "You are a college counselor. Help the student plan their next courses. Return ONLY a JSON array of course IDs, nothing else.",
       responseMimeType: "application/json",
       responseSchema: {
         type: Type.ARRAY,
