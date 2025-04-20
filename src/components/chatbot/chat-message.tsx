@@ -1,41 +1,35 @@
-import type { Message } from "ai"
-import { User, Bot } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Card } from "@/components/ui/card"
-import ReactMarkdown from 'react-markdown'
-import courseData from "@/data/ucr_courses.json"
+import ReactMarkdown from "react-markdown";
+import type { Message } from "ai";
+import { User, Bot } from "lucide-react";
 
-interface Course {
-  course_id: string;
-  title: string;
-  description: string;
-}
+import courseData from "@/data/ucr-courses.json";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-interface ChatMessageProps {
-  message: Message;
-}
-
-export default function ChatMessage({ message }: ChatMessageProps) {
-  const isUser = message.role === "user"
+export default function ChatMessage({ message }: { message: Message }) {
+  const isUser = message.role === "user";
 
   const renderCourseInfo = (content: string) => {
     try {
       const courseIds = JSON.parse(content) as string[];
       if (!Array.isArray(courseIds)) return content;
 
-      const courseInfo = courseIds.map(id => {
-        const course = (courseData as Course[]).find((c) => c.course_id.includes(id));
-        if (!course) {
-          return `${id}: Refer to full UCR course catalog for course details\n\n`;
-        }
-        return `${course.course_id}: ${course.title}\n${course.description}\n\n`;
-      }).join('');
+      const courseInfo = courseIds
+        .map((id) => {
+          const course = (courseData as Courses)[id];
+          if (!course) {
+            return `${id}: Refer to full UCR course catalog for course details\n\n`;
+          }
+          return `${course.id}: ${course.title}\n${course.description}\n\n`;
+        })
+        .join("");
 
       return courseInfo || content;
     } catch (e) {
+      console.error(e);
       return content;
     }
-  }
+  };
 
   return (
     <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
