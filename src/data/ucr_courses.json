@@ -32,7 +32,7 @@
     {
         "course_id": "CS 009A",
         "title": "Data-Oriented Introduction to Computing I",
-        "description": "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s):MATH 004, may be taken concurrently or MATH005A, may be taken concurrently or MATH006A, may be taken concurrently or MATH 006B, may be taken concurrently or MATH007A, may be taken concurrently or MATH009A, may be taken concurrently or MATH09HA, may be taken concurrently. Covers computational thinking, problem-solving, and data analysis through application-based data manipulation tasks from science, engineering, business, and the humanities. Includes variables, expressions, branches, loops, functions, parameters, lists, strings, file I/O, and exception handling. Also covers software design, testing, and debugging. Credit is awarded for one of the following CS 009A, CS009M, or CS 010A."
+        "description": "4 Units, Lecture, 3 hours; laboratory, 2 hours; individual study, 1 hour. Prerequisite(s):MATH 004, may be taken concurrently or MATH 005A, may be taken concurrently or MATH 006A, may be taken concurrently or MATH 006B, may be taken concurrently or MATH 007A, may be taken concurrently or MATH 009A, may be taken concurrently or MATH 09HA, may be taken concurrently. Covers computational thinking, problem-solving, and data analysis through application-based data manipulation tasks from science, engineering, business, and the humanities. Includes variables, expressions, branches, loops, functions, parameters, lists, strings, file I/O, and exception handling. Also covers software design, testing, and debugging. Credit is awarded for one of the following CS 009A, CS 009M, or CS 010A."
     },
     {
         "course_id": "CS 009B",
@@ -47,7 +47,7 @@
     {
         "course_id": "CS 010A",
         "title": "Introduction to CS for Science Mathematics, and Engineering I - C++",
-        "description": "4 Units, Lecture, 3 hours, Laboratory, 3 hours.  Prerequisite(s):MATH 004, may be taken concurrently or MATH005A, may be taken concurrently or MATH006B, may be taken concurrently or MATH007A, may be taken concurrently or MATH 009A,may be taken concurrently or MATH 09HA, maybe taken concurrently. Covers problem solving through structured programming of algorithms on computers using the C++ object-oriented language. Includes variables, expressions, input/output (I/O), branches, loops, functions, parameters, arrays, strings, file I/O, and classes. Also covers software design, testing, and debugging. Credit is awarded for one of the following CS 010A, CS 009A, or CS 009M.Credit is not awarded for CS 005 or CS 008 if it has already been awarded for CS 010A."
+        "description": "4 Units, Lecture, 3 hours, Laboratory, 3 hours.  Prerequisite(s):MATH 004, may be taken concurrently or MATH 005A, may be taken concurrently or MATH 006B, may be taken concurrently or MATH 007A, may be taken concurrently or MATH 009A,may be taken concurrently or MATH 09HA, maybe taken concurrently. Covers problem solving through structured programming of algorithms on computers using the C++ object-oriented language. Includes variables, expressions, input/output (I/O), branches, loops, functions, parameters, arrays, strings, file I/O, and classes. Also covers software design, testing, and debugging. Credit is awarded for one of the following CS 010A, CS 009A, or CS 009M.Credit is not awarded for CS 005 or CS 008 if it has already been awarded for CS 010A."
     },
     {
         "course_id": "CS 010B",
@@ -72,7 +72,7 @@
     {
         "course_id": "CS 100",
         "title": "Software Construction",
-        "description": "5 Units, Lecture, 3hours; laboratory, 2 hours; discussion, 1 hour; individual study, 1 hour. Prerequisite(s): CS010C with a grade of C- or better. Emphasizes development of software systems. Topics include design and implementation strategies and selection and mastery of programming languages, environment tools, and development processes. Develops skill in programming, testing, debugging, performance evaluation, component integration, maintenance, and documentation. Covers professional and ethical responsibilities and the need to stay current with technology."
+        "description": "5 Units, Lecture, 3hours; laboratory, 2 hours; discussion, 1 hour; individual study, 1 hour. Prerequisite(s): CS 010C with a grade of C- or better. Emphasizes development of software systems. Topics include design and implementation strategies and selection and mastery of programming languages, environment tools, and development processes. Develops skill in programming, testing, debugging, performance evaluation, component integration, maintenance, and documentation. Covers professional and ethical responsibilities and the need to stay current with technology."
     },
     {
         "course_id": "CS 105",
@@ -122,7 +122,7 @@
     {
         "course_id": "CS 130",
         "title": "Computer Graphics",
-        "description": "4 Units, Lecture, 3hours; discussion, 1 hour. Prerequisite(s): CS100; MATH 031, may be taken concurrently or EE020B, may be taken concurrently; or consent of instructor. A study of the fundamentals of computer graphics necessary to design and build graphics applications. Examines raster graphics algorithms including scan-converting graphics primitives, anti-aliasing, and clipping. Also covers geometric transformations, viewing, solid modeling techniques, hidden-surface removal algorithms, color models, illumination, and shading."
+        "description": "4 Units, Lecture, 3hours; discussion, 1 hour. Prerequisite(s): CS 100; MATH 031, may be taken concurrently or EE 020B, may be taken concurrently; or consent of instructor. A study of the fundamentals of computer graphics necessary to design and build graphics applications. Examines raster graphics algorithms including scan-converting graphics primitives, anti-aliasing, and clipping. Also covers geometric transformations, viewing, solid modeling techniques, hidden-surface removal algorithms, color models, illumination, and shading."
     },
     {
         "course_id": "CS 131",
@@ -137,7 +137,7 @@
     {
         "course_id": "CS 141",
         "title": "Intermediate Data Structures and Algorithms",
-        "description": "4 Units, Lecture, 3 hours; discussion,1 hour. Prerequisite(s): CS 010C with a grad e of C- or better; CS 111; MATH 009C or MATH09HC; proficiency in C++. Explores basic algorithm analysis using asymptotic notations, summation and recurrence relations, and algorithms and data structures for discrete structures including trees, strings, and graphs. Also covers general algorithm design techniques including “divide-and-conquer,” the greedy method, and dynamic programming. Integrates knowledge of data structures, algorithms, and programming."
+        "description": "4 Units, Lecture, 3 hours; discussion,1 hour. Prerequisite(s): CS 010C with a grad e of C- or better; CS 111; MATH 009C or MATH 09HC; proficiency in C++. Explores basic algorithm analysis using asymptotic notations, summation and recurrence relations, and algorithms and data structures for discrete structures including trees, strings, and graphs. Also covers general algorithm design techniques including “divide-and-conquer,” the greedy method, and dynamic programming. Integrates knowledge of data structures, algorithms, and programming."
     },
     {
         "course_id": "CS 142",
@@ -225,7 +225,7 @@
         "description": "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): CS 100 with a grade of “C-” or better, CS 111. An introduction to the field of artificial intelligence. Focuses on discretevalued problems. Covers heuristic search, problem representation, and classical planning. Also covers constraint satisfaction and logical inference."
     },
     {
-        "course_id": "CS 171/EE 142",
+        "course_id": "CS 171",
         "title": "Introduction to Machine Learning and Data Mining",
         "description": "4 Units, Lecture, 3 hours; discussion, 1 hour. Prerequisite(s): MATH 010A, MATH 031 or EE 020B; STAT 155 or EE 114; CS 100 or CS 120B or EE 120B. Introduces formalisms and methods in data mining and machine learning. Topics include data representation, supervised learning, and classification. Covers regression and clustering. Also covers rule learning, function approximation, and margin-based methods. Cross-listed with EE 142."
     },
