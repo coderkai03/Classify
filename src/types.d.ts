@@ -6,7 +6,7 @@ interface Course {
   id: string;
   title: string;
   description: string;
-  prerequisites: PrereqTree;
+  prerequisites: PrereqTree | PrereqCourse | null;
   upcoming: string[];
 }
 
