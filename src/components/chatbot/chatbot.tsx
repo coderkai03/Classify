@@ -1,34 +1,44 @@
 "use client";
 
 import { useEffect } from "react";
-import { useGemini } from "@/hooks/useGemini";
+import { useChat } from "@ai-sdk/react";
 
 import ChatMessages from "@/components/chatbot/chat-messages";
 import ChatInput from "@/components/chatbot/chat-input";
+import { AgentUIMessage } from "@/lib/agent";
+import { DefaultChatTransport } from "ai";
 
 export default function Chatbot({
   setHomeMessage,
   setPrevMessage,
 }: {
-  setHomeMessage: (message1: Message) => void;
-  setPrevMessage: (message2: Message) => void;
+  setHomeMessage: (message1: AgentUIMessage) => void;
+  setPrevMessage: (message2: AgentUIMessage) => void;
 }) {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useGemini();
+  const {
+    messages,
+    sendMessage,
+    status,
+  } = useChat<AgentUIMessage>({
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+    }),
+    onError: (error: Error) => {
+      console.error("Chat error:", error);
+    },
+  });
 
   useEffect(() => {
-    setHomeMessage(messages.at(-1) as Message);
-    setPrevMessage(messages.at(-2) as Message);
+    setHomeMessage(messages.at(-1) as AgentUIMessage);
+    setPrevMessage(messages.at(-2) as AgentUIMessage);
   }, [messages, setHomeMessage, setPrevMessage]);
 
   return (
     <div className="flex flex-col h-full rounded-xl overflow-hidden border border-blue-300 shadow-md">
-      <ChatMessages messages={messages} isLoading={isLoading} />
+      <ChatMessages messages={messages} status={status} />
       <ChatInput
-        input={input}
-        handleInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-        isLoading={isLoading}
+        sendMessage={sendMessage}
+        status={status}
       />
     </div>
   );

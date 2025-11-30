@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import ChatMessage from "@/components/chatbot/chat-message";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AgentUIMessage } from "@/lib/agent";
 
-export default function ChatMessages({
-  messages,
-  isLoading,
-}: {
-  messages: Message[];
-  isLoading: boolean;
-}) {
+interface ChatMessagesProps {
+  messages: AgentUIMessage[];
+  status: "submitted" | "streaming" | "ready" | "error";
+}
+
+export default function ChatMessages({ messages, status }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function ChatMessages({
       style={{ scrollbarWidth: "thin" }}
     >
       <div ref={messagesEndRef} />
-      {isLoading && (
+      {(status === "streaming" || status === "submitted") && (
         <Skeleton className="w-[100px] h-[20px] rounded-full bg-blue-200" />
       )}
       {messages.length === 0 ? (
@@ -33,7 +33,15 @@ export default function ChatMessages({
           .slice()
           .reverse()
           .map((message, index) => (
-            <ChatMessage key={index} message={message} />
+            message.parts.map((part, partIndex) => (
+              part.type === "text" ? (
+                <ChatMessage 
+                  key={`${index}-${partIndex}`} 
+                  text={part.text} 
+                  role={message.role}
+                />
+              ) : null
+            ))
           ))
       )}
     </div>

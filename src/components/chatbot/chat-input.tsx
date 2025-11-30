@@ -1,23 +1,32 @@
 "use client";
 
-import type { FormEvent, ChangeEvent } from "react";
+import { useState, type FormEvent, type ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
+import { useChat } from "@ai-sdk/react";
+import { AgentUIMessage } from "@/lib/agent";
 
 interface ChatInputProps {
-  input: string;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  isLoading: boolean;
+  sendMessage: ReturnType<typeof useChat<AgentUIMessage>>["sendMessage"];
+  status: "submitted" | "streaming" | "ready" | "error";
 }
 
 export default function ChatInput({
-  input,
-  handleInputChange,
-  handleSubmit,
-  isLoading,
+  sendMessage,
+  status,
 }: ChatInputProps) {
+  const [input, setInput] = useState("");
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (input.trim()) {
+      sendMessage({ parts: [{ type: "text", text: input }] });
+      setInput("");
+    }
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -26,7 +35,7 @@ export default function ChatInput({
       <Input
         value={input}
         onChange={handleInputChange}
-        disabled={isLoading}
+        disabled={status === "streaming" || status === "submitted"}
         placeholder="Type your message..."
         className="flex-1 bg-white shadow-sm border-blue-200"
       />
@@ -36,7 +45,7 @@ export default function ChatInput({
         className="ml-1 bg-blue-500 hover:bg-blue-600"
         variant="default"
         aria-label="Send"
-        disabled={isLoading || input.trim() === ""}
+        disabled={status === "streaming" || status === "submitted" || input.trim() === ""}
       >
         <Send size={20} />
       </Button>
