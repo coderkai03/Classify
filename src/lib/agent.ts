@@ -1,5 +1,8 @@
 import { openai } from "@ai-sdk/openai";
-import { logQueryTool } from "./tools/logQueryTool";
+import { weatherTool } from "./tools/weatherTool";
+import { flowchartTool } from "./tools/flowchartTool";
+import { tableTool } from "./tools/tableTool";
+import { infoCardTool } from "./tools/infoCardTool";
 import {
     Experimental_Agent as Agent,
     Experimental_InferAgentUIMessage as InferAgentUIMessage,
@@ -8,7 +11,7 @@ import majorRequirements from "@/data/ucr-major-reqs.json";
 import courseData from "@/data/ucr-courses.json";
 
 // Build the system prompt
-const systemPrompt = `You are a college counselor. Help the student plan their next courses.
+const systemPrompt = `You are a college counselor assistant with advanced visualization capabilities. Help students plan their courses using rich, interactive displays.
 
 Here are the UCR major requirements and course catalog to help you make your decision:
 
@@ -23,13 +26,21 @@ Important notes:
 2. Consider course conditions (e.g. course X AND course Y or course Z OR course W).
 3. Assume the student has taken all prerequisites for the courses they are taking.
 
-Return ONLY a JSON array of course IDs that the student should take next. Include the course(s) mentioned in the student's message.`;
+You have access to special tools to create rich visualizations:
+- Use the 'generateFlowchart' tool when students ask about course sequences, degree pathways, or want to visualize prerequisites
+- Use the 'generateTable' tool when comparing courses, showing course details, or displaying structured data
+- Use the 'generateInfoCard' tool to highlight important information, warnings, tips, or course requirements
+
+Combine text responses with these visual tools to provide comprehensive, easy-to-understand guidance.`;
 
 export const agent = new Agent({
     model: openai('gpt-4o'),
     system: systemPrompt,
     tools: {
-    logUserQuery: logQueryTool,
+        weather: weatherTool,
+        generateFlowchart: flowchartTool,
+        generateTable: tableTool,
+        generateInfoCard: infoCardTool,
     },
 });
 
