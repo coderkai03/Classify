@@ -2,7 +2,8 @@
 
 import Chatbot from "@/components/chatbot/chatbot";
 import Flowchart from "@/components/flowchart/flowchart";
-import { FlowchartDisplay } from "@/components/tool-displays/flowchart-display";
+import { ScheduleDisplay } from "@/components/tool-displays/schedule-display";
+import { PrerequisiteFlowchartDisplay } from "@/components/tool-displays/prerequisite-flowchart-display";
 import { TableDisplay } from "@/components/tool-displays/table-display";
 // import { InfoCardDisplay } from "@/components/tool-displays/info-card-display";
 
@@ -11,6 +12,7 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 import { useState } from "react";
 import { AgentUIMessage } from "@/lib/agent";
@@ -22,18 +24,25 @@ interface ToolOutput {
     id: string;
     name: string;
     prerequisites: string[];
-    semester?: number;
+    semester: number;
+    startTime?: string;
+    endTime?: string;
+    daysOfWeek?: number[];
+    color?: string;
   }>;
+  courseIds?: string[];
   headers?: string[];
   rows?: string[][];
   content?: string;
   variant?: 'info' | 'warning' | 'success' | 'error';
   metadata?: Record<string, string>;
+  startDate?: string;
 }
 
 export default function Home() {
   const [homeMessage, setHomeMessage] = useState<AgentUIMessage | null>(null);
   const [prevMessage, setPrevMessage] = useState<AgentUIMessage | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("schedule");
 
   // Helper function to extract text content from AgentUIMessage
   const getMessageContent = (message: AgentUIMessage | null): string => {
@@ -66,43 +75,88 @@ export default function Home() {
   const renderVisualization = () => {
     const toolOutputs = getToolOutputs(homeMessage);
     
-    // If there are tool outputs, render them instead of the flowchart
+    // Separate tool outputs by type
+    const scheduleOutputs = toolOutputs.filter(
+      (output) => output.type === 'schedule'
+    );
+    const flowchartOutputs = toolOutputs.filter(
+      (output) => output.type === 'flowchart'
+    );
+    const tableOutputs = toolOutputs.filter(
+      (output) => output.type === 'table'
+    );
+    
+    // Determine the current tab value - use activeTab if valid, otherwise default to first available
+    const getCurrentTab = () => {
+      const validTabs = [];
+      if (scheduleOutputs.length > 0) validTabs.push("schedule");
+      if (flowchartOutputs.length > 0) validTabs.push("flowchart");
+      if (tableOutputs.length > 0) validTabs.push("table");
+      
+      if (validTabs.includes(activeTab)) {
+        return activeTab;
+      }
+      return validTabs[0] || "schedule";
+    };
+    
+    const currentTab = toolOutputs.length > 0 ? getCurrentTab() : activeTab;
+    
+    // If there are tool outputs, render them with tabs
     if (toolOutputs.length > 0) {
       return (
-        <div className="flex-1 overflow-auto bg-white rounded-xl p-6 border border-blue-300 shadow-md">
-          {toolOutputs.map((output, index) => {
-            if (output.type === 'flowchart' && output.title && output.courses) {
-              return (
-                <FlowchartDisplay
-                  key={index}
-                  title={output.title}
-                  courses={output.courses}
-                />
-              );
-            }
-            else if (output.type === 'table' && output.title && output.headers && output.rows) {
-              return (
-                <TableDisplay
-                  key={index}
-                  title={output.title}
-                  headers={output.headers}
-                  rows={output.rows}
-                />
-              );
-            }
-            // else if (output.type === 'info-card' && output.title && output.content && output.variant) {
-            //   return (
-            //     <InfoCardDisplay
-            //       key={index}
-            //       title={output.title}
-            //       content={output.content}
-            //       variant={output.variant}
-            //       metadata={output.metadata}
-            //     />
-            //   );
-            // }
-            return null;
-          })}
+        <div className="flex-1 flex flex-col overflow-hidden bg-white rounded-xl border border-blue-300 shadow-md">
+          <Tabs value={currentTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0">
+            <div className="px-6 pt-6 pb-2 border-b">
+              <TabsList>
+                {scheduleOutputs.length > 0 && (
+                  <TabsTrigger value="schedule">Schedule</TabsTrigger>
+                )}
+                {flowchartOutputs.length > 0 && (
+                  <TabsTrigger value="flowchart">Flowchart</TabsTrigger>
+                )}
+                {tableOutputs.length > 0 && (
+                  <TabsTrigger value="table">Table</TabsTrigger>
+                )}
+              </TabsList>
+            </div>
+            <div className="flex-1 overflow-auto p-6">
+              {scheduleOutputs.length > 0 && (
+                <TabsContent value="schedule" className="mt-0">
+                  {scheduleOutputs.map((output, index) => (
+                    <ScheduleDisplay
+                      key={index}
+                      title={output.title || "Course Schedule"}
+                      courses={output.courses || []}
+                      startDate={output.startDate}
+                    />
+                  ))}
+                </TabsContent>
+              )}
+              {flowchartOutputs.length > 0 && (
+                <TabsContent value="flowchart" className="mt-0">
+                  {flowchartOutputs.map((output, index) => (
+                    <PrerequisiteFlowchartDisplay
+                      key={index}
+                      title={output.title || "Course Prerequisites Flow"}
+                      courseIds={output.courseIds || []}
+                    />
+                  ))}
+                </TabsContent>
+              )}
+              {tableOutputs.length > 0 && (
+                <TabsContent value="table" className="mt-0">
+                  {tableOutputs.map((output, index) => (
+                    <TableDisplay
+                      key={index}
+                      title={output.title || "Table"}
+                      headers={output.headers || []}
+                      rows={output.rows || []}
+                    />
+                  ))}
+                </TabsContent>
+              )}
+            </div>
+          </Tabs>
         </div>
       );
     }
@@ -125,7 +179,7 @@ export default function Home() {
           maxSize={60}
           className="flex flex-col min-h-0"
         >
-          <div className="flex-1 min-h-0 h-full p-4">
+          <div className="flex-1 min-h-0 h-full p-4 pb-20">
             <Chatbot
               setHomeMessage={setHomeMessage}
               setPrevMessage={setPrevMessage}

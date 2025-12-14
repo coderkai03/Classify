@@ -1,5 +1,6 @@
 import { openai } from "@ai-sdk/openai";
 import { weatherTool } from "./tools/weatherTool";
+import { scheduleTool } from "./tools/scheduleTool";
 import { flowchartTool } from "./tools/flowchartTool";
 import { tableTool } from "./tools/tableTool";
 import { infoCardTool } from "./tools/infoCardTool";
@@ -27,7 +28,8 @@ Important notes:
 3. Assume the student has taken all prerequisites for the courses they are taking.
 
 You have access to special tools to create rich visualizations:
-- Use the 'generateFlowchart' tool when students ask about course sequences, degree pathways, or want to visualize prerequisites
+- Use the 'generateSchedule' tool when students ask about course schedules, semester planning, or want to see courses organized by when they should be taken
+- Use the 'generateFlowchart' tool when students ask about course prerequisites, want to visualize course dependencies, or need to understand the flow of courses based on their requirements
 - Use the 'generateTable' tool when comparing courses, showing course details, or displaying structured data
 - Use the 'generateInfoCard' tool to highlight important information, warnings, tips, or course requirements
 
@@ -38,6 +40,7 @@ export const agent = new Agent({
     system: systemPrompt,
     tools: {
         weather: weatherTool,
+        generateSchedule: scheduleTool,
         generateFlowchart: flowchartTool,
         generateTable: tableTool,
         generateInfoCard: infoCardTool,
