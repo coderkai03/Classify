@@ -56,7 +56,7 @@ export function PrerequisiteFlowchartDisplay({ title, courseIds }: PrerequisiteF
     courseIds.forEach(addPrerequisites);
 
     // Create nodes
-    const nodes = Array.from(allCourseIds).map((courseId, index) => {
+    const nodes = Array.from(allCourseIds).map((courseId) => {
       const course = (courseData as Courses)[courseId];
       return {
         id: courseId,
